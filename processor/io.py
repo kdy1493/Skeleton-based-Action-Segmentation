@@ -35,7 +35,7 @@ class IO():
         p = parser.parse_args(argv)
         if p.config is not None:
             # load config file
-            with open(p.config, 'r') as f:
+            with open(p.config, 'r', encoding='utf-8') as f:
                 default_arg = yaml.load(f, Loader=yaml.FullLoader)
 
             # update parser from config file

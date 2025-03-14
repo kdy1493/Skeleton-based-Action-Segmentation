@@ -1,0 +1,29 @@
+work_dir: ./work_dir/custom
+feeder: feeder.feeder.Feeder
+train_feeder_args:
+  data_path: ./data/custom_train_data.npy
+  label_path: ./data/custom_train_label.npy
+  debug: False
+
+# 테스트 데이터 로더 추가
+feeder: feeder.feeder.Feeder
+test_feeder_args:
+  data_path: ./data/custom_train_data.npy  # 테스트 데이터가 없으면 훈련 데이터 재사용
+  label_path: ./data/custom_train_label.npy
+  debug: False
+
+model: net.st_gcn.Model
+model_args:
+  in_channels: 2
+  num_class: 5  # "no_activity", "standing", "sitting", "walking", "no_presence"
+  edge_importance_weighting: True
+  graph_args:
+    layout: 'kinetics'  # 17개 관절
+    strategy: 'spatial'
+phase: train
+use_gpu: False
+device: 0  # GPU 있으면 0, 없으면 -1
+batch_size: 16
+base_lr: 0.001
+optimizer: Adam
+num_epoch: 50

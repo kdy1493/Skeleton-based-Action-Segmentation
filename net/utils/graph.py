@@ -70,7 +70,43 @@ class Graph():
             neighbor_link = [(i - 1, j - 1) for (i, j) in neighbor_1base]
             self.edge = self_link + neighbor_link
             self.center = 2
-        # elif layout=='customer settings'
+        elif layout == 'kinetics':
+            self.num_node = 17  # 17개 관절
+            self_link = [(i, i) for i in range(self.num_node)]  # 자기 자신과의 연결
+            
+            # 관절 간 연결 정의 (인체 구조에 따른 연결)
+            # 관절 인덱스는 0부터 시작 (joint1 = 0, joint2 = 1, ...)
+            neighbor_link = [
+                # 머리 부분
+                (0, 1),  # joint1(코) - joint2(왼쪽 눈)
+                (0, 2),  # joint1(코) - joint3(오른쪽 눈)
+                (1, 3),  # joint2(왼쪽 눈) - joint4(왼쪽 귀)
+                (2, 4),  # joint3(오른쪽 눈) - joint5(오른쪽 귀)
+                
+                # 상체
+                (0, 5),  # joint1(코) - joint6(왼쪽 어깨)
+                (0, 6),  # joint1(코) - joint7(오른쪽 어깨)
+                (5, 6),  # joint6(왼쪽 어깨) - joint7(오른쪽 어깨)
+                
+                (5, 7),  # joint6(왼쪽 어깨) - joint8(왼쪽 팔꿈치)
+                (6, 8),  # joint7(오른쪽 어깨) - joint9(오른쪽 팔꿈치)
+                (7, 9),  # joint8(왼쪽 팔꿈치) - joint10(왼쪽 손목)
+                (8, 10),  # joint9(오른쪽 팔꿈치) - joint11(오른쪽 손목)
+                
+                # 하체
+                (5, 11),  # joint6(왼쪽 어깨) - joint12(왼쪽 엉덩이)
+                (6, 12),  # joint7(오른쪽 어깨) - joint13(오른쪽 엉덩이)
+                (11, 12),  # joint12(왼쪽 엉덩이) - joint13(오른쪽 엉덩이)
+                
+                (11, 13),  # joint12(왼쪽 엉덩이) - joint14(왼쪽 무릎)
+                (12, 14),  # joint13(오른쪽 엉덩이) - joint15(오른쪽 무릎)
+                (13, 15),  # joint14(왼쪽 무릎) - joint16(왼쪽 발목)
+                (14, 16)   # joint15(오른쪽 무릎) - joint17(오른쪽 발목)
+            ]
+            
+            self.edge = self_link + neighbor_link  # 모든 연결(엣지) 정의
+            self.center = 0  # 중심 관절 (joint1, 코)
+        # elif layout=='customer settings':
         #     pass
         else:
             raise ValueError("Do Not Exist This Layout.")
