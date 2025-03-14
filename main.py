@@ -31,3 +31,6 @@ if __name__ == '__main__':
     p = Processor(sys.argv[2:])
 
     p.start()
+
+
+    # python main.py recognition -c config/st_gcn/custom/test.yaml
